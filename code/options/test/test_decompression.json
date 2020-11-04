@@ -1,13 +1,13 @@
 {
-  "name": "Test_HyperRIM_x16_Butterfly"
+  "name": "HyperRIM_Test_Decompression"
   , "use_tb_logger": true
   , "model":"hrim"
-  , "scale": 16
+  , "scale": 2
   , "gpu_ids": [0]
   , "multiple": 10
   , "datasets": {
     "val": {
-      "name": "n02279972_test"
+      "name": "test"
       , "mode": "LRHR"
       , "dataroot_HR": "/path/to/test/HR/data"
       , "dataroot_LR": "/path/to/test/LR/data"
@@ -21,13 +21,14 @@
 
   , "network_G": {
     "which_model_G": "IMRRDB_net"
-    , "num_dense_channels": [256, 192, 128, 64]
-    , "num_residual_channels": [128, 64, 64, 64]
+    , "num_dense_channels": [64]
+    , "num_residual_channels": [64]
     , "num_blocks": 6
     , "in_nc": 3
     , "out_nc": 3
     , "code_nc" : 5
     , "map_nc" : 128
     , "latent_nc" : 512
+    , "no_upsample" : true
   }
 }

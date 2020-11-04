@@ -1,0 +1,78 @@
+{
+  "name": "HyperRIM_Train_SR_x16"
+  , "use_tb_logger": true
+  , "model":"hrim"
+  , "scale": 16
+  , "gpu_ids": [0]
+
+  , "datasets": {
+    "train": {
+      "name": "train"
+      , "mode": "LRHR_four_levels"
+      , "dataroot_HR": "/path/to/train/HR/data"
+      , "dataroot_LR": "/path/to/train/LR/data"
+      , "dataroot_D1": "/path/to/train/HR/downsampled/by/8x/data"
+      , "dataroot_D2": "/path/to/train/HR/downsampled/by/4x/data"
+      , "dataroot_D3": "/path/to/train/HR/downsampled/by/2x/data"
+      , "subset_file": null
+      , "use_shuffle": true
+      , "use_flip": true
+      , "use_rot": true
+      , "n_workers": 8
+      , "batch_size_per_month": 320
+      , "batch_size_per_day": 1
+    }
+    , "val": {
+      "name": "test"
+      , "mode": "LRHR"
+      , "dataroot_HR": "/path/to/test/HR/data"
+      , "dataroot_LR": "/path/to/test/LR/data"
+    }
+  }
+
+  , "path": {
+      "root": "/path/to/HyperRIM"
+  , "pretrain_model_G": null
+
+  }
+
+  , "network_G": {
+    "which_model_G": "IMRRDB_net"
+    , "num_dense_channels": [256, 192, 128, 64]
+    , "num_residual_channels": [128, 64, 64, 64]
+    , "num_blocks": 6
+    , "in_nc": 3
+    , "out_nc": 3
+    , "code_nc" : 5
+    , "map_nc" : 128
+    , "latent_nc" : 512
+  }
+
+  , "train": {
+    "lr_G": 1.25e-4 // for butterfly (n02279972) training use 1e-4
+    , "weight_decay_G": 0
+    , "beta1_G": 0.9
+    , "lr_scheme": "MultiStepLR"
+    , "lr_steps": [85000]
+    , "lr_gamma": 1.0
+
+    , "use_dci": true
+    , "inter_supervision": true
+    , "dci_num_comp_indices": 2
+    , "dci_num_simp_indices": 10
+
+    , "num_samples_per_img": 120
+    , "sample_perturbation_magnitude": 0
+    , "zero_code": false
+    , "num_months": 20
+    , "num_days": 1e4
+
+    , "manual_seed": 0
+    , "val_freq": 5e3
+  }
+
+  , "logger": {
+    "print_freq": 200
+    , "save_checkpoint_freq": 5e3
+  }
+}
