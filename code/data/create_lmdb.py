@@ -21,9 +21,6 @@ pbar = ProgressBar(len(img_list))
 for i, v in enumerate(img_list):
     pbar.update('Read {}'.format(v))
     img = cv2.imread(v, cv2.IMREAD_UNCHANGED)
-    if img is None:
-        print("!!! Img: %s" % v)
-        continue
     dataset.append(img)
     data_size += img.nbytes
 env = lmdb.open(lmdb_save_path, map_size=data_size * 10)
