@@ -22,11 +22,6 @@ font-size: 16px;
 font-family: Helvetica; font-style: normal; font-variant: normal; font-weight: 100; line-height: 20px;
 }
 
-.my-carousel {
-    //min-height: 280px;
-    min-height: 15vw;
-}
-
 h4 {
 font-size: 20px;
 }
@@ -48,6 +43,10 @@ font-size: 20px;
 
 .vid-caption {
   padding: 5px;
+}
+
+.vid-item {
+  min-height: 15vw;
 }
 
 .slidebutton {
@@ -74,13 +73,11 @@ img.sr-inp {
 
 .slick-prev:before, .slick-next:before{
     background-color: #666666;
-    /*font-size: 40px;*/
     border-radius: 50%;
 }
 
 .grey {
     background-color: #edf3fc;
-    //#f2f2f2;
 }
 
 .switch {
