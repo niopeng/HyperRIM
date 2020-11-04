@@ -1,0 +1,11 @@
+numpy
+opencv-python
+lmdb
+pyyaml
+scipy
+scikit-image
+tensorboard_logger
+matplotlib
+tqdm
+torch>=1.4
+torchvision

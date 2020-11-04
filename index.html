@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HyperRIM</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <link rel="stylesheet" href="./website/index.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+</head>
+<body>
+
+<a href="https://github.com/niopeng/HyperRIM/codes" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: fixed; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+<div class="container-fluid text-center">
+    <div class="row content">
+        <h1 class="display-1">Generating Unobserved Alternatives</h1>
+      <p class="lead">A Case Study through Super-Resolution and Decompression</p>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+            <a href="https://niopeng.github.io/"><p class="name">Shichong Peng</p></a>
+            <p class="affiliation">Simon Fraser University & University of California, San Diego</p>
+        </div>
+        <div class="col-sm-3">
+            <a href="https://www.math.ias.edu/~ke.li/"><p class="name">Ke Li</p></a>
+            <p class="affiliation">Simon Fraser University, Google & Institute for Advanced Study</p>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+
+  <div class="col-sm-4 sidenav text-left">
+      <div class="container-fluid">
+          <h3 class="shift">Contents</h3>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#model">Model</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#sr">16x Super-Resolution</a></li>
+        <li><a href="#dc">Image Decompression</a></li>
+        <li><a href="#vs">IMLE vs GAN</a></li>
+      </ul><br>
+      </div>
+
+    </div>
+
+  <div class="col-sm-4 sidenav barright text-left">
+      <div class="container-fluid">
+          <h3>Links</h3>
+          <div class="row">
+              <div class="col-sm-6">
+                  <a href="https://arxiv.org/abs/2011.01926"><img src="./website/paper_icon.jpg" alt="Paper" width=48px></a>
+                  <p>Paper</p>
+              </div>
+              <div class="col-sm-6">
+                  <a href="https://github.com/niopeng/HyperRIM/code"><img src="./website/github.webp" alt="Github" width=48px></a>
+                  <p>Code</p>
+              </div>
+          </div>
+      </div>
+    </div>
+
+  <div class="row content">
+    <div class="col-sm-3">
+    </div>
+
+    <div class="col-sm-6 text-left">
+
+      <img id="intro" src="./website/Teaser.jpg" alt="Teaser" width=100%>
+
+      <h2 id="model">Model</h2>
+        <p>The model is the same as a generator in a conditional GAN. However, unlike a conditional GAN,
+            the model avoids mode collapse and can generate multiple outputs for the same input. </p>
+        <video width=100% controls autoplay muted loop>
+                <source src="./website/arch.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+
+        <hr>
+      <h2 id="method">Method</h2>
+        <p>The model is trained with
+            <a href="https://arxiv.org/abs/1809.09087">Implicit Maximum Likelihood Estimation (IMLE)</a>.
+            The objective function is non-adversarial and aims to cover all modes. It takes the following form (please hover over the coloured letters for descriptions):</p>
+            $$\min_{\texttip{\color{blue}{\theta}}{Generator Parameters}}\mathbb{E}_{\texttip{\color{red}{\mathbf{z}_{1},\ldots,\mathbf{z}_{m}}}{Latent Code Samples}
+                \sim \texttip{\color{orange}{\mathcal{N}(0, \mathbf{I})}}{Standard Normal Distribution}}\left[\sum_{i=1}^{\texttip{\color{purple}{n}}{Number Of Real Data Points}}\min_{j\in
+                \{1,\ldots,\texttip{\color{purple}{m}}{Number Of Generated Samples}\}}\texttip{\color{brown}{d}}{Distance Metric}(\texttip{\color{blue}{F_{\theta}}}{Generator}(\texttip{\color{red}{\mathbf{z}_{j}}}{Latent Code Sample}),
+                \texttip{\color{green}{\mathbf{y}_{i}}}{Real Data})\right]$$
+            <p>The animation below shows how it works:
+        </p>
+        <div class="text-center">
+            <video width=65% controls autoplay muted loop>
+            <source src="./website/imle.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+        </div>
+        <div class="container-fluid text-center"><a href="#vs" class="btn btn-info" role="button">How does this compare to a GAN?</a></div>
+
+
+
+        <hr>
+      <h2 id="sr">16x Super-Resolution</h2>
+        <p>We use our method to increase the width and height of images by a factor of 16x.
+            Toggle for our results (HyperRIM) and those of 2x<a href="https://arxiv.org/abs/1809.00219">ESRGAN</a>,
+            which is a leading GAN-based 4x super-resolution method applied twice.
+        </p>
+
+
+        <div class="my-carousel">
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_but_0.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_bird_0.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_straw_0.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_but_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_bird_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_straw_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_but_2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_bird_2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_straw_2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_but_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_bird_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_straw_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_but_4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_bird_4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div class="sr-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_straw_4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+        </div>
+
+        <div class="container-fluid text-center my-buttons">
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-default" id="btn-sr-inp">
+                <input type="radio" name="options"> Input
+              </label>
+              <label class="btn btn-default" id="btn-sr-bl">
+                <input type="radio" name="options"> 2xESRGAN
+              </label>
+              <label class="btn btn-default active" id="btn-sr-hrim">
+                <input type="radio" name="options" checked> HyperRIM
+              </label>
+            </div>
+        </div>
+
+        <hr>
+      <h2 id="dc">Image Decompression</h2>
+        <p>We use our method to recover a plausible image from a badly compressed image.
+            Toggle for our results (HyperRIM) and those of  <a href="https://arxiv.org/abs/1611.07004">Pix2Pix</a>.
+        </p>
+
+        <div class="my-carousel">
+            <div id="dc-1" class="dc-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/Decompression/HyperRIM/r0c5e9567t.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div id="dc-2" class="dc-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/Decompression/HyperRIM/r0279b17bt.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div id="dc-3" class="dc-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/Decompression/HyperRIM/r00de2590t.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div id="dc-4" class="dc-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/Decompression/HyperRIM/r00b8d4a2t.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+            <div id="dc-5" class="dc-carousel-item"><video width=94% controls autoplay muted loop><source src="./website/samples/Decompression/HyperRIM/r15d1c836t.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video></div>
+        </div>
+
+        <div class="container-fluid text-center my-buttons">
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-default" id="btn-dc-inp">
+                <input type="radio" name="options"> Input
+              </label>
+              <label class="btn btn-default" id="btn-dc-bl">
+                <input type="radio" name="options"> Pix2Pix
+              </label>
+              <label class="btn btn-default active" id="btn-dc-hrim">
+                <input type="radio" name="options" checked> HyperRIM
+              </label>
+            </div>
+        </div>
+
+        <hr>
+      <div id="vs">
+        <h2>IMLE vs GAN</h2>
+
+        <p>IMLE trains a generator without a discriminator. It has two key differences with GANs:
+            it avoids mode collapse and training instability.
+            The animation below shows what happens when training a GAN.
+        </p>
+          <div class="text-center">
+        <video width=65% controls autoplay muted loop>
+        <source src="./website/GAN_alg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+        </div>
+          <p>As shown above, a GAN encourages every generated sample to be similar to a real data point.
+              On the other hand, IMLE flips the direction: it instead encourages every real data point to have a similar generated sample. </p>
+        <div class="container-fluid grey">
+            <h4>Mode Collapse</h4>
+            <p>Below is a comparison of the behaviours of GAN and IMLE over the course of training.
+                Real data points are shown as blue crosses and the probability density of generated samples is shown as a heatmap. </p>
+            <div class="container-fluid">
+                <div class="row text-center">
+                  <div class="col-sm-6">
+                      <video width=95% controls autoplay muted loop>
+                        <source src="./website/gan.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                    </video>
+                      <p>GAN</p>
+                  </div>
+                  <div class="col-sm-6">
+                      <video width=95% controls autoplay muted loop>
+                        <source src="./website/i.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                    </video>
+                      <p>IMLE</p>
+                  </div>
+              </div>
+            </div>
+            <p>As shown above, the GAN usually generates data points at the bottom and largely ignores the data points at
+                the top. In comparison, IMLE can generate all data points with similar frequency.
+            </p>
+        </div>
+
+        <div class="container-fluid">
+            <h4>Stable Training</h4>
+            <p>Because IMLE uses a non-adversarial objective, it trains stably.</p>
+            <video width=100% controls autoplay muted loop>
+                <source src="./website/stable.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+            <p>The output is shown on the left and the loss over time is shown on the right.
+                The output quality improves steadily over the course of training.
+            </p>
+        </div>
+
+        <div class="container-fluid grey">
+            <h4>Recall Evaluation by Inverting Generator</h4>
+            <p>The ideal generator should be able to reconstruct the observed real image from some latent code.
+                We keep the generator fixed and use gradient descent to find a latent code that reproduces the real image.
+            </p>
+            <div class="container-fluid">
+                <div class="row">
+                <div class="col-sm-4 text-center">
+                    <video width=95% controls autoplay muted loop>
+                        <source src="./website/gan_recall.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                    </video>
+                    <p>2xESRGAN</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <video width=95% controls autoplay muted loop>
+                        <source src="./website/target_recall.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                    </video>
+                    <p>HyperRIM</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <img src="./website/target.jpeg" alt="Sample Target" width=95%>
+                    <p class="vid-caption">Observed Real Image</p>
+                </div>
+                </div>
+            </div>
+            <p>
+                As shown above, our method (HyperRIM) successfully reconstructs the real image, whereas 2xESRGAN fails to do so.
+            </p>
+        </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="col-sm-3 sidenav">
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('.my-carousel').slick({
+        centerMode: true,
+	   dots: true,
+	  centerPadding: '20px',
+	  slidesToShow: 3,
+	  infinite: true,
+	  autoplay: true,
+  	  // autoplaySpeed: 2000,
+  	  autoplaySpeed: 4000,
+  	  arrows: true,
+  	  focusOnSelect: true,
+  	  slidesToScroll: 3,
+  	  responsive: [
+    {
+      breakpoint: 720,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 512,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
+      });
+    });
+
+var sr_paths = new Array();
+
+sr_paths[0] = [
+        "./website/samples/input/inp_but_0.mp4",
+        "./website/samples/2xESRGAN/gan_but_0.mp4",
+        "./website/samples/HyperRIM/hrim_but_0.mp4"
+        ];
+sr_paths[1] = [
+        "./website/samples/input/inp_bird_0.mp4",
+        "./website/samples/2xESRGAN/gan_bird_0.mp4",
+        "./website/samples/HyperRIM/hrim_bird_0.mp4"
+        ];
+sr_paths[2] = [
+        "./website/samples/input/inp_straw_0.mp4",
+        "./website/samples/2xESRGAN/gan_straw_0.mp4",
+        "./website/samples/HyperRIM/hrim_straw_0.mp4"
+        ];
+sr_paths[3] = [
+        "./website/samples/input/inp_but_1.mp4",
+        "./website/samples/2xESRGAN/gan_but_1.mp4",
+        "./website/samples/HyperRIM/hrim_but_1.mp4"
+        ];
+sr_paths[4] = [
+        "./website/samples/input/inp_bird_1.mp4",
+        "./website/samples/2xESRGAN/gan_bird_1.mp4",
+        "./website/samples/HyperRIM/hrim_bird_1.mp4"
+        ];
+sr_paths[5] = [
+        "./website/samples/input/inp_straw_1.mp4",
+        "./website/samples/2xESRGAN/gan_straw_1.mp4",
+        "./website/samples/HyperRIM/hrim_straw_1.mp4"
+        ];
+sr_paths[6] = [
+        "./website/samples/input/inp_but_2.mp4",
+        "./website/samples/2xESRGAN/gan_but_2.mp4",
+        "./website/samples/HyperRIM/hrim_but_2.mp4"
+        ];
+sr_paths[7] = [
+        "./website/samples/input/inp_bird_2.mp4",
+        "./website/samples/2xESRGAN/gan_bird_2.mp4",
+        "./website/samples/HyperRIM/hrim_bird_2.mp4"
+        ];
+sr_paths[8] = [
+        "./website/samples/input/inp_straw_2.mp4",
+        "./website/samples/2xESRGAN/gan_straw_2.mp4",
+        "./website/samples/HyperRIM/hrim_straw_2.mp4"
+        ];
+sr_paths[9] = [
+        "./website/samples/input/inp_but_3.mp4",
+        "./website/samples/2xESRGAN/gan_but_3.mp4",
+        "./website/samples/HyperRIM/hrim_but_3.mp4"
+        ];
+sr_paths[10] = [
+        "./website/samples/input/inp_bird_3.mp4",
+        "./website/samples/2xESRGAN/gan_bird_3.mp4",
+        "./website/samples/HyperRIM/hrim_bird_3.mp4"
+        ];
+sr_paths[11] = [
+        "./website/samples/input/inp_straw_3.mp4",
+        "./website/samples/2xESRGAN/gan_straw_3.mp4",
+        "./website/samples/HyperRIM/hrim_straw_3.mp4"
+        ];
+sr_paths[12] = [
+        "./website/samples/input/inp_but_4.mp4",
+        "./website/samples/2xESRGAN/gan_but_4.mp4",
+        "./website/samples/HyperRIM/hrim_but_4.mp4"
+        ];
+sr_paths[13] = [
+        "./website/samples/input/inp_bird_4.mp4",
+        "./website/samples/2xESRGAN/gan_bird_4.mp4",
+        "./website/samples/HyperRIM/hrim_bird_4.mp4"
+        ];
+sr_paths[14] = [
+        "./website/samples/input/inp_straw_4.mp4",
+        "./website/samples/2xESRGAN/gan_straw_4.mp4",
+        "./website/samples/HyperRIM/hrim_straw_4.mp4"
+        ];
+
+
+  $('#btn-sr-inp').on('click', function () {
+    var x = document.getElementsByClassName("sr-carousel-item");
+    var i;
+    for (i = 0; i < x.length; i++) {
+      var cur_index;
+      if (i < 4) {
+        cur_index = i + 11;
+      } else if (i < 19) {
+        cur_index = i - 4;
+      } else {
+        cur_index = i - 19;
+      }
+      x[i].childNodes[0].src = sr_paths[cur_index][0];
+      x[i].childNodes[0].load();
+    }})
+
+
+  $('#btn-sr-bl').on('click', function () {
+    var x = document.getElementsByClassName("sr-carousel-item");
+    var i;
+    for (i = 0; i < x.length; i++) {
+      var cur_index;
+      if (i < 4) {
+        cur_index = i + 11;
+      } else if (i < 19) {
+        cur_index = i - 4;
+      } else {
+        cur_index = i - 19;
+      }
+      x[i].childNodes[0].src = sr_paths[cur_index][1];
+      x[i].childNodes[0].load();
+    }})
+
+$('#btn-sr-hrim').on('click', function () {
+    var x = document.getElementsByClassName("sr-carousel-item");
+    var i;
+    for (i = 0; i < x.length; i++) {
+      var cur_index;
+      if (i < 4) {
+        cur_index = i + 11;
+      } else if (i < 19) {
+        cur_index = i - 4;
+      } else {
+        cur_index = i - 19;
+      }
+      x[i].childNodes[0].src = sr_paths[cur_index][2];
+      x[i].childNodes[0].load();
+    }})
+
+
+var dc_paths = new Array();
+
+dc_paths[0] = [
+        "./website/samples/Decompression/Input/r0c5e9567t_real_A.mp4",
+        "./website/samples/Decompression/Pix2Pix/r0c5e9567t_fake_B.mp4",
+        "./website/samples/Decompression/HyperRIM/r0c5e9567t.mp4"
+        ];
+dc_paths[1] = [
+        "./website/samples/Decompression/Input/r0279b17bt_real_A.mp4",
+        "./website/samples/Decompression/Pix2Pix/r0279b17bt_fake_B.mp4",
+        "./website/samples/Decompression/HyperRIM/r0279b17bt.mp4"
+        ];
+dc_paths[2] = [
+        "./website/samples/Decompression/Input/r00de2590t_real_A.mp4",
+        "./website/samples/Decompression/Pix2Pix/r00de2590t_fake_B.mp4",
+        "./website/samples/Decompression/HyperRIM/r00de2590t.mp4"
+        ];
+dc_paths[3] = [
+        "./website/samples/Decompression/Input/r00b8d4a2t_real_A.mp4",
+        "./website/samples/Decompression/Pix2Pix/r00b8d4a2t_fake_B.mp4",
+        "./website/samples/Decompression/HyperRIM/r00b8d4a2t.mp4"
+        ];
+dc_paths[4] = [
+        "./website/samples/Decompression/Input/r15d1c836t_real_A.mp4",
+        "./website/samples/Decompression/Pix2Pix/r15d1c836t_fake_B.mp4",
+        "./website/samples/Decompression/HyperRIM/r15d1c836t.mp4"
+        ];
+
+
+$('#btn-dc-inp').on('click', function () {
+    var x = document.getElementsByClassName("dc-carousel-item");
+    var i;
+    console.log(x.length);
+    for (i = 0; i < x.length; i++) {
+      var cur_index;
+      if (i < 4) {
+        cur_index = i + 1;
+      } else if (i < 9) {
+        cur_index = i - 4;
+      } else {
+        cur_index = i - 9;
+      }
+      x[i].childNodes[0].src = dc_paths[cur_index][0];
+      x[i].childNodes[0].load();
+    }})
+
+
+  $('#btn-dc-bl').on('click', function () {
+    var x = document.getElementsByClassName("dc-carousel-item");
+    var i;
+    for (i = 0; i < x.length; i++) {
+      var cur_index;
+      if (i < 4) {
+        cur_index = i + 1;
+      } else if (i < 9) {
+        cur_index = i - 4;
+      } else {
+        cur_index = i - 9;
+      }
+      x[i].childNodes[0].src = dc_paths[cur_index][1];
+      x[i].childNodes[0].load();
+    }})
+
+$('#btn-dc-hrim').on('click', function () {
+    var x = document.getElementsByClassName("dc-carousel-item");
+    var i;
+    for (i = 0; i < x.length; i++) {
+      var cur_index;
+      if (i < 4) {
+        cur_index = i + 1;
+      } else if (i < 9) {
+        cur_index = i - 4;
+      } else {
+        cur_index = i - 9;
+      }
+      x[i].childNodes[0].src = dc_paths[cur_index][2];
+      x[i].childNodes[0].load();
+    }})
+
+  </script>
+
+
+
+</body>
+</html>
