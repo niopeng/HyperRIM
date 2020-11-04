@@ -3,7 +3,7 @@
 - use opencv (`cv2`) to read and process images.
 
 - read from **image** files OR from **.lmdb** for fast IO speed.
-    - How to create .lmdb file? Please see [`create_lmdb.py`](https://github.com/niopeng/HyperRIM/blob/master/codes/data/create_lmdb.py).
+    - How to create .lmdb file? Please see [`create_lmdb.py`](https://github.com/niopeng/HyperRIM/blob/main/code/data/create_lmdb.py).
 
 ## Contents
 
