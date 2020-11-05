@@ -12,6 +12,9 @@ HyperRIM is able to:
 
 ![Intro](./website/Teaser.jpg)
 
+## Installation
+Please refer to [this page](https://github.com/niopeng/HyperRIM/tree/main/code#hyperrim-hyper-resolution-implicit-model).
+
 ## Organization
 The repository consists of the following components:
 - `code/`: Code for training and testing the model
