@@ -1,0 +1,3 @@
+[submodule "code/dciknn_cuda"]
+	path = code/dciknn_cuda
+	url = https://github.com/niopeng/dciknn_cuda
