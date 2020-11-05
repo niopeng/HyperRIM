@@ -10,7 +10,7 @@ HyperRIM is able to:
 - Recover a plausible image from a badly compressed image
 - Possibly do other things yet to be explored 😃
 
-![Intro](../website/Teaser.jpg)
+![Intro](./website/Teaser.jpg)
 
 ## Organization
 The repository consists of the following components:
