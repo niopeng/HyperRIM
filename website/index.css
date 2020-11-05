@@ -4,6 +4,10 @@
   padding: 10px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .container-fluid {
  padding: 30px;
 }
