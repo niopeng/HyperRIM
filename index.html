@@ -149,15 +149,6 @@
             <div class="sr-carousel-item"><video class="vid-item" width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_straw_3.mp4" type="video/mp4">
             Your browser does not support the video tag.
             </video></div>
-            <div class="sr-carousel-item"><video class="vid-item" width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_but_4.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-            </video></div>
-            <div class="sr-carousel-item"><video class="vid-item" width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_bird_4.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-            </video></div>
-            <div class="sr-carousel-item"><video class="vid-item" width=94% controls autoplay muted loop><source src="./website/samples/HyperRIM/hrim_straw_4.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-            </video></div>
         </div>
 
         <div class="container-fluid text-center my-buttons">
@@ -407,21 +398,6 @@ sr_paths[11] = [
         "./website/samples/2xESRGAN/gan_straw_3.mp4",
         "./website/samples/HyperRIM/hrim_straw_3.mp4"
         ];
-sr_paths[12] = [
-        "./website/samples/input/inp_but_4.mp4",
-        "./website/samples/2xESRGAN/gan_but_4.mp4",
-        "./website/samples/HyperRIM/hrim_but_4.mp4"
-        ];
-sr_paths[13] = [
-        "./website/samples/input/inp_bird_4.mp4",
-        "./website/samples/2xESRGAN/gan_bird_4.mp4",
-        "./website/samples/HyperRIM/hrim_bird_4.mp4"
-        ];
-sr_paths[14] = [
-        "./website/samples/input/inp_straw_4.mp4",
-        "./website/samples/2xESRGAN/gan_straw_4.mp4",
-        "./website/samples/HyperRIM/hrim_straw_4.mp4"
-        ];
 
 
   $('#btn-sr-inp').on('click', function () {
@@ -430,11 +406,11 @@ sr_paths[14] = [
     for (i = 0; i < x.length; i++) {
       var cur_index;
       if (i < 4) {
-        cur_index = i + 11;
-      } else if (i < 19) {
+        cur_index = i + 8;
+      } else if (i < 16) {
         cur_index = i - 4;
       } else {
-        cur_index = i - 19;
+        cur_index = i - 16;
       }
       x[i].childNodes[0].src = sr_paths[cur_index][0];
       x[i].childNodes[0].load();
@@ -447,11 +423,11 @@ sr_paths[14] = [
     for (i = 0; i < x.length; i++) {
       var cur_index;
       if (i < 4) {
-        cur_index = i + 11;
-      } else if (i < 19) {
+        cur_index = i + 8;
+      } else if (i < 16) {
         cur_index = i - 4;
       } else {
-        cur_index = i - 19;
+        cur_index = i - 16;
       }
       x[i].childNodes[0].src = sr_paths[cur_index][1];
       x[i].childNodes[0].load();
@@ -463,11 +439,11 @@ $('#btn-sr-hrim').on('click', function () {
     for (i = 0; i < x.length; i++) {
       var cur_index;
       if (i < 4) {
-        cur_index = i + 11;
-      } else if (i < 19) {
+        cur_index = i + 8;
+      } else if (i < 16) {
         cur_index = i - 4;
       } else {
-        cur_index = i - 19;
+        cur_index = i - 16;
       }
       x[i].childNodes[0].src = sr_paths[cur_index][2];
       x[i].childNodes[0].load();
