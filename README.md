@@ -10,7 +10,7 @@ HyperRIM is able to:
 - Recover a plausible image from a badly compressed image
 - Possibly do other things yet to be explored 😃
 
-![Intro](./website/Teaser.jpg)
+![Intro](./website/Intro.jpg)
 
 ## Installation
 Please refer to [this page](https://github.com/niopeng/HyperRIM/tree/main/code#hyperrim-hyper-resolution-implicit-model).
