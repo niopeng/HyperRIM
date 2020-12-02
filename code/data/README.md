@@ -1,6 +1,6 @@
 # Dataloader
 
-- use opencv (`cv2`) to read and process images.
+- use opencv (`cv2`) to read ~~and process~~ images. **Update**: Please use `PIL` when downsampling original images to obtain intermediate targets, anti-aliasing in `cv2.resize()` is **NOT** implemented correctly (as of OpenCV v4.5.0)!
 
 - read from **image** files OR from **.lmdb** for fast IO speed.
     - How to create .lmdb file? Please see [`create_lmdb.py`](https://github.com/niopeng/HyperRIM/blob/main/code/data/create_lmdb.py).
